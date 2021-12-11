@@ -21,6 +21,9 @@ declare global {
   //   // Global vue app instance
   //   __APP__: App<Element>;
   // }
+  declare interface Window {
+    dicts: any;
+  }
 
   // vue
   declare type PropType<T> = VuePropType<T>;

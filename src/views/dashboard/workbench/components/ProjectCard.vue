@@ -5,7 +5,7 @@
     </template>
 
     <template v-for="item in items" :key="item">
-      <CardGrid class="!md:w-1/3 !w-full">
+      <CardGrid class="!md:w-1/3 !w-full" @click="gotoChoodseModel">
         <span class="flex">
           <Icon :icon="item.icon" :color="item.color" size="30" />
           <span class="text-lg ml-4">{{ item.title }}</span>
@@ -24,11 +24,18 @@
   import { Card } from 'ant-design-vue';
   import { Icon } from '/@/components/Icon';
   import { groupItems } from './data';
+  import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
     components: { Card, CardGrid: Card.Grid, Icon },
     setup() {
-      return { items: groupItems };
+      const go = useGo();
+      return {
+        items: groupItems,
+        gotoChoodseModel() {
+          go('/dashboard/chooseModel');
+        },
+      };
     },
   });
 </script>

@@ -106,7 +106,7 @@ export const dynamicInfoItems: DynamicInfoItem[] = [
 
 export const groupItems: GroupItem[] = [
   {
-    title: 'Github',
+    title: '亢龙有悔',
     icon: 'carbon:logo-github',
     color: '',
     desc: '不要等待机会，而要创造机会。',

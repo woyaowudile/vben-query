@@ -31,6 +31,22 @@ const dashboard: AppRouteModule = {
         title: t('routes.dashboard.workbench'),
       },
     },
+    {
+      path: 'chooseModel',
+      name: 'chooseModel',
+      component: () => import('/@/views/dashboard/chooseModel/index.vue'),
+      meta: {
+        title: '筛选',
+      },
+    },
+    {
+      path: 'tablePage',
+      name: 'tablePage',
+      component: () => import('/@/views/dashboard/tablePage/index.vue'),
+      meta: {
+        title: '一览',
+      },
+    },
   ],
 };
 
