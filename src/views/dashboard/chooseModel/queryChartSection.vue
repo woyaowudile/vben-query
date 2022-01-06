@@ -31,7 +31,7 @@
       const { item, queryFn } = toRefs(props);
       function MA(datas, n) {
         let lists = datas.map((v, start) => {
-          if (start < n) return 0;
+          if (start < n) return '';
           let data = datas.slice(start - (n - 1), start + 1);
           let count = data.reduce((x, y) => {
             let x1 = x.c ? x.c / 1 : x;
@@ -46,7 +46,7 @@
         let datas = rawData.datas;
         let categoryData = (datas || []).map((v) => v.d);
         let values = (datas || []).map((v) => [v.o, v.c, v.l, v.h, v.v]);
-        let volumes = (datas || []).map((v, i) => [i, v.c, v.o, v.o > v.c ? 1 : -1]);
+        let volumes = (datas || []).map((v, i) => [i, v.v, v.o > v.c ? 1 : -1]);
         let MA10 = MA(datas, 10, 10);
         let MA20 = MA(datas, 20, 20);
         let MA60 = MA(datas, 60, 60);
@@ -221,7 +221,7 @@
             {
               type: 'inside',
               xAxisIndex: [0, 1],
-              start: 99,
+              start: 20,
               end: 100,
             },
             {
