@@ -60,7 +60,8 @@
               mode: 'multiple',
               options: window.dicts,
               onChange(e) {
-                formModel.dwm = 'w';
+                state.index = 0;
+                state.page = 1;
               },
             };
           },
@@ -73,6 +74,10 @@
           colProps: { span: 6 },
           componentProps: {
             valueFormat: 'YYYY-MM-DD',
+            onChange(e) {
+              state.index = 0;
+              state.page = 1;
+            },
           },
         },
         {
@@ -81,6 +86,12 @@
           component: 'Input',
           defaultValue: '600,601,603,000,002',
           colProps: { span: 6 },
+          componentProps: {
+            onChange(e) {
+              state.index = 0;
+              state.page = 1;
+            },
+          },
         },
         {
           field: 'dwm',
@@ -94,6 +105,10 @@
               { label: '周', value: 'w' },
               { label: '月', value: 'm' },
             ],
+            onChange(e) {
+              state.index = 0;
+              state.page = 1;
+            },
           },
         },
       ];
