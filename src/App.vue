@@ -35,6 +35,7 @@
     { label: '神3', value: 'isSlbw3' },
     { label: '神4', value: 'isSlbw4' },
     { label: '葛八', value: 'isG8M1' },
+    { label: '鱼跃龙门', value: 'isYylm' },
   ];
 
   // Listening to page changes and dynamically changing site titles

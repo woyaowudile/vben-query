@@ -144,7 +144,12 @@
       }
       async function preCheckClick() {
         message.warn('正在预处理数据，请稍后...');
-        const res = await getqueryBefore();
+        const res = await getqueryBefore({
+          ...getFieldsValue(),
+          index: state.index,
+          page: state.page,
+          size: state.size,
+        });
         message.success(res.message);
       }
       return {
