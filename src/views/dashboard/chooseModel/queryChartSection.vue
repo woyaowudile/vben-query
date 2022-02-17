@@ -296,6 +296,13 @@
           ],
         };
       }
+      function getBuyDate() {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = `${date.getMonth() + 1}`.padStart(2, 0);
+        let day = `${date.getDate()}`.padStart(2, 0);
+        return `${year}-${month}-${day}`;
+      }
       async function checkChange({ target }, code) {
         let res = unref(item),
           result: any = {};
@@ -308,6 +315,7 @@
               name: window.dicts.find((d) => d.value === v[0])?.label,
               name_key: v[0],
               buy: v[1],
+              buy_date: getBuyDate(),
               code: res.code,
               type: res.code.slice(0, 3),
               dwm: res.dwm,
