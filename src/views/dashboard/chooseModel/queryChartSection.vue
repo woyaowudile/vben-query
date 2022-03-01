@@ -127,16 +127,16 @@
               backgroundColor: '#777',
             },
           },
-          toolbox: {
-            feature: {
-              dataZoom: {
-                yAxisIndex: false,
-              },
-              brush: {
-                type: ['lineX', 'clear'],
-              },
-            },
-          },
+          // toolbox: {
+          //   feature: {
+          //     dataZoom: {
+          //       yAxisIndex: false,
+          //     },
+          //     brush: {
+          //       type: ['lineX', 'clear'],
+          //     },
+          //   },
+          // },
           brush: {
             xAxisIndex: 'all',
             brushLink: 'all',
@@ -263,6 +263,7 @@
               name: 'MA10',
               type: 'line',
               data: calculateMA(10, data),
+              symbol: 'none',
               smooth: true,
               lineStyle: {
                 opacity: 0.5,
@@ -272,6 +273,7 @@
               name: 'MA20',
               type: 'line',
               data: calculateMA(20, data),
+              symbol: 'none',
               smooth: true,
               lineStyle: {
                 opacity: 0.5,
@@ -281,6 +283,7 @@
               name: 'MA60',
               type: 'line',
               data: calculateMA(60, data),
+              symbol: 'none',
               smooth: true,
               lineStyle: {
                 opacity: 0.5,

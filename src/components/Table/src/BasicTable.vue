@@ -6,7 +6,7 @@
       v-if="getBindValues.useSearchForm"
       :tableAction="tableAction"
       @register="registerForm"
-      @submit="handleSearchInfoChange"
+      @submit="handleSearchInfoChangeSubmit"
       @advanced-change="redoHeight"
     >
       <template #[replaceFormSlotKey(item)]="data" v-for="item in getFormSlotKeys">
@@ -316,7 +316,10 @@
         getBindValues,
         getLoading,
         registerForm,
-        handleSearchInfoChange,
+        handleSearchInfoChangeSubmit(e) {
+          handleSearchInfoChange(e);
+          clearSelectedRowKeys();
+        },
         getEmptyDataIsShowTable,
         handleTableChange,
         getRowClassName,

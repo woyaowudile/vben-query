@@ -11,4 +11,5 @@ export interface addCof {
   type: string;
   dwm: string;
   remark?: string;
+  level?: string;
 }

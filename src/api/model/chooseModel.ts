@@ -7,6 +7,7 @@ enum Api {
   queryTable = '/api/query/table',
   queryChart = '/api/query/chart',
   add = '/api/query/add',
+  update = '/api/query/update',
   delete = '/api/query/delete',
 }
 
@@ -24,6 +25,9 @@ export const getqueryChart = (params?: Recordable) =>
 
 export const getqueryInsert = (params?: addCof[]) =>
   defHttp.post<Recordable[]>({ url: Api.add, params });
+
+export const getqueryUpdate = (params?: { level: string | number; id: number }) =>
+  defHttp.put<Recordable[]>({ url: Api.update, params });
 
 export const getqueryDelete = (params?: delCof) =>
   defHttp.delete<Recordable[]>({ url: Api.delete, params });
