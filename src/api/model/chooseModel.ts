@@ -1,6 +1,9 @@
-import { defHttp } from '/@/utils/http/axios';
+// import { defHttp } from '/@/utils/http/axios';
 import { delCof, addCof } from './interface';
+import axios from 'axios';
 
+const apiUrl = 'http://localhost:3334';
+// const apiUrl = 'http://b619-132-226-207-245.ngrok.io';
 enum Api {
   query = '/api/query',
   queryBefore = '/api/querybefore',
@@ -11,23 +14,37 @@ enum Api {
   delete = '/api/query/delete',
 }
 
-export const getquery = (params?: Recordable) =>
-  defHttp.get<Recordable[]>({ url: Api.query, params });
+export const getquery = async (data?: Recordable) => {
+  const res: any = await axios.get<Recordable[]>(apiUrl + Api.query, { params: data });
+  return res?.data?.result;
+};
 
-export const getqueryBefore = (params?: Recordable) =>
-  defHttp.get<Recordable[]>({ url: Api.queryBefore, params });
+export const getqueryBefore = async (data?: Recordable) => {
+  const res: any = await axios.get<Recordable[]>(apiUrl + Api.queryBefore, { params: data });
+  return res?.data?.result?.data;
+};
 
-export const getqueryTable = (params?: Recordable) =>
-  defHttp.get<Recordable[]>({ url: Api.queryTable, params });
+export const getqueryTable = async (data?: Recordable) => {
+  const res: any = await axios.get<Recordable[]>(apiUrl + Api.queryTable, { params: data });
+  return res?.data?.result?.data;
+};
 
-export const getqueryChart = (params?: Recordable) =>
-  defHttp.post<Recordable[]>({ url: Api.queryChart, params });
+export const getqueryChart = async (data?: Recordable) => {
+  const res: any = await axios.post<Recordable[]>(apiUrl + Api.queryChart, data);
+  return res?.data?.result;
+};
 
-export const getqueryInsert = (params?: addCof[]) =>
-  defHttp.post<Recordable[]>({ url: Api.add, params });
+export const getqueryInsert = async (data?: addCof[]) => {
+  const res: any = await axios.post<Recordable[]>(apiUrl + Api.add, data);
+  return res?.data?.result;
+};
 
-export const getqueryUpdate = (params?: { level: string | number; id: number }) =>
-  defHttp.put<Recordable[]>({ url: Api.update, params });
+export const getqueryUpdate = async (data?: { level: string | number; id: number }) => {
+  const res: any = await axios.put<Recordable[]>(apiUrl + Api.update, data);
+  return res?.data?.result;
+};
 
-export const getqueryDelete = (params?: delCof) =>
-  defHttp.delete<Recordable[]>({ url: Api.delete, params });
+export const getqueryDelete = async (data?: delCof) => {
+  const res: any = await axios.delete<Recordable[]>(apiUrl + Api.delete, { params: data });
+  return res?.data?.result;
+};
