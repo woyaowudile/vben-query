@@ -2,8 +2,8 @@
 import { delCof, addCof } from './interface';
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:3334';
-// const apiUrl = 'http://b619-132-226-207-245.ngrok.io';
+// const apiUrl = 'http://localhost:3334';
+const apiUrl = 'http://b619-132-226-207-245.ngrok.io';
 enum Api {
   query = '/api/query',
   queryBefore = '/api/querybefore',
