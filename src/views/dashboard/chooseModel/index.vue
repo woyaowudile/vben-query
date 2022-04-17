@@ -54,7 +54,7 @@
           label: '模型',
           component: 'Select',
           colProps: { span: 6 },
-          defaultValue: 'isKlyh',
+          defaultValue: ['isKlyh'],
           componentProps: ({ formModel }) => {
             return {
               mode: 'multiple',
