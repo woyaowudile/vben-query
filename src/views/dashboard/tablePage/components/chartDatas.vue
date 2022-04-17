@@ -5,7 +5,6 @@
   import { onMounted, ref, Ref } from 'vue';
   import { useECharts } from '/@/hooks/web/useECharts';
   import { basicProps } from './props';
-  import { debug } from 'console';
 
   const props = defineProps({
     ...basicProps,

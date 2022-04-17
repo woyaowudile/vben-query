@@ -1,9 +1,9 @@
 // import { defHttp } from '/@/utils/http/axios';
 import { delCof, addCof } from './interface';
 import axios from 'axios';
+import { isProdMode } from '/@/utils/env';
 
-// const apiUrl = 'http://localhost:3334';
-const apiUrl = 'http://b619-132-226-207-245.ngrok.io';
+const apiUrl = isProdMode() ? 'http://2211-112-111-24-66.ngrok.io' : 'http://localhost:3334';
 enum Api {
   query = '/api/query',
   queryBefore = '/api/querybefore',
@@ -12,10 +12,15 @@ enum Api {
   add = '/api/query/add',
   update = '/api/query/update',
   delete = '/api/query/delete',
+  analysis = '/api/analysis',
 }
 
 export const getquery = async (data?: Recordable) => {
   const res: any = await axios.get<Recordable[]>(apiUrl + Api.query, { params: data });
+  return res?.data?.result;
+};
+export const getanalysis = async (data?: Recordable) => {
+  const res: any = await axios.get<Recordable[]>(apiUrl + Api.analysis, { params: data });
   return res?.data?.result;
 };
 

@@ -116,6 +116,13 @@
         labelWidth: 80,
         // showActionButtonGroup: false,
         schemas: modalSchema,
+        baseColProps: {
+          xxl: 12,
+          xs: 12,
+          sm: 6,
+          md: 6,
+          lg: 6,
+        },
         actionColOptions: {
           span: 24,
         },

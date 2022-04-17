@@ -4,8 +4,8 @@
       <BasicTable @register="tableClass.table.register" @edit-end="tableEditEnd">
         <template #toolbar>
           <div>
-            <a-button color="success" @click="chooseOk">确认展示选中项</a-button>
-            <a-button color="success" @click="chooseDel">删除所选</a-button>
+            <a-button class="mx-2" size="small" color="success" @click="chooseOk">展示</a-button>
+            <a-button class="mx-2" size="small" color="success" @click="chooseDel">删除</a-button>
           </div>
         </template>
         <template #action="{ record }">
@@ -25,9 +25,14 @@
     </CollapseContainer>
     <CollapseContainer title="echarts一览">
       <a-tabs :tabBarStyle="{ backgroundColor: '#ffffff' }">
-        <a-tabs-pane tab="11111">
+        <a-tabs-pane key="line" tab="line">
           <div v-if="state.results.length">
             <ChartDatas :datas="state.results" />
+          </div>
+        </a-tabs-pane>
+        <a-tabs-pane key="bar" tab="bar">
+          <div v-if="state.results.length">
+            <Bar :datas="state.bar" />
           </div>
         </a-tabs-pane>
       </a-tabs>
@@ -45,6 +50,7 @@
   import _ from 'lodash-es';
 
   import ChartDatas from './components/chartDatas.vue';
+  import Bar from './components/bar.vue';
 
   export default defineComponent({
     name: 'TablePage',
@@ -56,11 +62,17 @@
       CollapseContainer,
       BasicTable,
       TableAction,
+      Bar,
     },
     setup() {
       const tableClass: any = new QueryTable({});
       const state = reactive({
         results: [],
+        bar: {
+          xAxis1: [] as any[],
+          xAxis2: [] as any[],
+          data: [] as any[],
+        },
       });
 
       async function del(ids) {
@@ -105,9 +117,14 @@
           res.code === 0 && message.success(res.message);
           res.code === 1 && message.error(res.message);
 
-          state.results = rows.map((v) => {
-            let { code, id, buy } = v;
+          state.results = rows.map((v, i) => {
+            let { code, id, buy, name } = v;
             let datas = res.data.find((d) => d.id === id)?.datas;
+            // bar
+            state.bar.xAxis1.push(code);
+            state.bar.xAxis2.push(name);
+            state.bar.data[i] = (datas[datas.length - 1]?.c - datas[0]?.c || 0).toFixed(2);
+            //  line
             let results = datas.filter((d) => {
               let now = new Date(d.d).getTime();
               let compire = new Date(buy).getTime();

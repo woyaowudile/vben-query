@@ -9,7 +9,7 @@ class table {
   constructor(opts: object) {
     this.opts = opts;
     this.tableConfig = {
-      title: '案件列表',
+      title: '列表',
       api: getqueryTable,
       columns,
       fetchSetting: {
