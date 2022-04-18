@@ -3,7 +3,7 @@ import { delCof, addCof } from './interface';
 import axios from 'axios';
 import { isProdMode } from '/@/utils/env';
 
-const apiUrl = isProdMode() ? 'http://2211-112-111-24-66.ngrok.io' : 'http://localhost:3334';
+const apiUrl = isProdMode() ? 'http://67ad-220-200-108-199.ngrok.io' : 'http://localhost:3334';
 enum Api {
   query = '/api/query',
   queryBefore = '/api/querybefore',
