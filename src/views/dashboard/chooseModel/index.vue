@@ -111,6 +111,23 @@
             },
           },
         },
+        {
+          field: 'isToday',
+          label: '当日',
+          component: 'Select',
+          colProps: { span: 6 },
+          defaultValue: 'N',
+          componentProps: {
+            options: [
+              { label: '是', value: 'Y' },
+              { label: '否', value: 'N' },
+            ],
+            onChange(e) {
+              state.index = 0;
+              state.page = 1;
+            },
+          },
+        },
       ];
       const [register, { getFieldsValue }] = useForm({
         labelWidth: 80,
