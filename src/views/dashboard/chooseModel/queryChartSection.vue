@@ -77,7 +77,7 @@
         // let coords = item.value.map(v => v.coords);
         let areas = coords.map((v) => ({
           brushType: 'lineX',
-          coordRange: [v[1], v[2]],
+          coordRange: [v[2], v[3]],
           xAxisIndex: 0,
         }));
         state.code = obj.code;
@@ -322,6 +322,7 @@
               code: res.code,
               type: res.code.slice(0, 3),
               dwm: res.dwm,
+              price: res.c,
             };
           });
           result = await getqueryInsert(addConf);

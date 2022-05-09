@@ -15,20 +15,20 @@ const dashboard: AppRouteModule = {
   },
   children: [
     {
+      path: 'workbench',
+      name: 'Workbench',
+      component: () => import('/@/views/dashboard/workbench/index.vue'),
+      meta: {
+        title: t('routes.dashboard.workbench'),
+      },
+    },
+    {
       path: 'analysis',
       name: 'Analysis',
       component: () => import('/@/views/dashboard/analysis/index.vue'),
       meta: {
         // affix: true,
         title: t('routes.dashboard.analysis'),
-      },
-    },
-    {
-      path: 'workbench',
-      name: 'Workbench',
-      component: () => import('/@/views/dashboard/workbench/index.vue'),
-      meta: {
-        title: t('routes.dashboard.workbench'),
       },
     },
     {
@@ -45,6 +45,24 @@ const dashboard: AppRouteModule = {
       component: () => import('/@/views/dashboard/tablePage/index.vue'),
       meta: {
         title: '一览',
+      },
+    },
+    {
+      path: 'analog',
+      name: 'Analog',
+      component: () => import('/@/views/dashboard/analog/index.vue'),
+      meta: {
+        // affix: true,
+        title: '模拟',
+      },
+    },
+    {
+      path: 'test',
+      name: 'Test',
+      component: () => import('/@/views/dashboard/modelTest/index.vue'),
+      meta: {
+        // affix: true,
+        title: '模型测试',
       },
     },
   ],

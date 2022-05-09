@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-  import { watch, defineComponent, toRefs, onMounted, nextTick, ref } from 'vue';
+  import { watch, defineComponent, toRefs, onMounted, nextTick, ref, unref } from 'vue';
   import * as echarts from 'echarts';
 
   export default defineComponent({
@@ -22,9 +22,19 @@
     },
     setup(props) {
       const { id, options, callbacks } = toRefs(props);
-      let myChart = ref(null);
-      nextTick(() => {
-        myChart = echarts.init(document.getElementById(id.value));
+      let myChart = ref(null) as any;
+
+      watch(
+        () => unref(options).series,
+        (val) => {
+          nextTick(() => {
+            resize();
+          });
+        },
+        { deep: true, immediate: true },
+      );
+      function resize() {
+        myChart = echarts.init(document.getElementById(id.value as any) as any);
         myChart.setOption(options.value);
         if (callbacks.value) {
           callbacks.value.forEach(({ name, params }) => {
@@ -32,7 +42,7 @@
           });
         }
         myChart.resize();
-      });
+      }
       return {};
     },
   });

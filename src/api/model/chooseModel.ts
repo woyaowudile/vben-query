@@ -3,7 +3,7 @@ import { delCof, addCof } from './interface';
 import axios from 'axios';
 import { isProdMode } from '/@/utils/env';
 
-const apiUrl = isProdMode() ? 'http://67ad-220-200-108-199.ngrok.io' : 'http://localhost:3334';
+const apiUrl = isProdMode() ? 'http://760e-112-111-24-182.ngrok.io' : 'http://localhost:3334';
 enum Api {
   query = '/api/query',
   queryBefore = '/api/querybefore',
@@ -13,6 +13,8 @@ enum Api {
   update = '/api/query/update',
   delete = '/api/query/delete',
   analysis = '/api/analysis',
+  analog = '/api/analog',
+  queryOne = '/api/queryOne',
 }
 
 export const getquery = async (data?: Recordable) => {
@@ -21,6 +23,14 @@ export const getquery = async (data?: Recordable) => {
 };
 export const getanalysis = async (data?: Recordable) => {
   const res: any = await axios.get<Recordable[]>(apiUrl + Api.analysis, { params: data });
+  return res?.data?.result;
+};
+export const getanalog = async (data?: Recordable) => {
+  const res: any = await axios.get<Recordable[]>(apiUrl + Api.analog, { params: data });
+  return res?.data?.result;
+};
+export const getqueryOne = async (data?: Recordable) => {
+  const res: any = await axios.get<Recordable[]>(apiUrl + Api.queryOne, { params: data });
   return res?.data?.result;
 };
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="mt-2">
       <BasicForm @register="state.register" @submit="handleSubmit" />
       <div class="flexbox">
         <a-pagination
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import { onMounted, reactive } from 'vue-demi';
+  import { computed, onMounted, reactive } from 'vue-demi';
   import { BasicForm, useForm } from '/@/components/Form';
   import { getquery, getqueryBefore } from '/@/api/model/chooseModel';
   import chart from './queryChartSection.vue';
@@ -146,9 +146,10 @@
       });
       state.register = register;
       async function init() {
+        const values = getFieldsValue();
         state.res = [];
         const res = await getquery({
-          ...getFieldsValue(),
+          ...values,
           index: state.index,
           page: state.page,
           size: state.size,
