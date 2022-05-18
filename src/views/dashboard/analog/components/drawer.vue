@@ -64,6 +64,15 @@
           },
         },
         {
+          field: 'code',
+          label: '代码',
+          component: 'Input',
+          colProps: { span: 6 },
+          componentProps: {
+            onChange(e) {},
+          },
+        },
+        {
           field: 'codes',
           label: '类型',
           component: 'Input',
@@ -130,14 +139,18 @@
       async function handleSubmit() {
         unref(state).show = false;
         const values = getFieldsValue();
-        const res = await getanalog({ ...values });
-        unref(state).coords = res.data.coords;
-        const random = getRandom(unref(state).coords.length);
-        queryOne(random);
+        if (values.code) {
+          queryOne(values.code, values);
+        } else {
+          const res = await getanalog({ ...values });
+          unref(state).coords = res.data.coords;
+          const random = getRandom(unref(state).coords.length);
+          queryOne(random, values);
+        }
       }
-      async function queryOne(random) {
+      async function queryOne(random, values) {
         const item = unref(state).coords[random] as any;
-        const res = await getqueryOne({ code: item[1] });
+        const res = await getqueryOne({ code: item[1], ...values });
         unref(state).datas = res.data;
         unref(state).callbacks = getCallbacks([item]);
 

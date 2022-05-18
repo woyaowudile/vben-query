@@ -20,7 +20,12 @@
     components: { Chart, DrawerComp },
     setup() {
       const state = reactive({
+        modalImage: window.dicts.find((v) => 'isKlyh' === v.value),
+        datas: [],
+        callbacks: [] as any,
+        time: new Date().getTime(),
         show: false,
+        pieDatas: '',
         options: {
           title: {
             text: 'Stacked Line',

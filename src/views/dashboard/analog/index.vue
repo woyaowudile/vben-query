@@ -14,7 +14,7 @@
           :options="getOptions(state.options)"
           :callbacks="state.callbacks"
         />
-        <Chart class="px-4 mt-4" :id="getId()" :options="getLineOptions(state.options)" />
+        <!-- <Chart class="px-4 mt-4" :id="getId()" :options="getLineOptions(state.options)" /> -->
         <div v-html="state.pieDatas"></div>
         <div v-html="getConditions"></div>
       </div>

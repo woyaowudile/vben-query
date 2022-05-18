@@ -1,14 +1,21 @@
 <template>
   <BasicDrawer v-bind="$attrs" title="Modal Title" width="50%" showFooter @ok="handleSubmit">
     <BasicForm @register="register" />
+
+    <div class="mt-4">
+      <a-image :width="200" :src="getImages" />
+    </div>
   </BasicDrawer>
 </template>
 <script lang="ts">
-  import { defineComponent, toRefs, unref } from 'vue';
+  import { computed, defineComponent, reactive, toRefs, unref } from 'vue';
+  import { Image, message } from 'ant-design-vue';
   import { BasicDrawer } from '/@/components/Drawer';
   import { BasicForm, useForm } from '/@/components/Form';
+  import { getanalog, getqueryOne } from '/@/api/model/chooseModel';
+  import { getOptions, getCallbacks } from '../data';
   export default defineComponent({
-    components: { BasicForm, BasicDrawer },
+    components: { BasicForm, BasicDrawer, AImage: Image },
     props: {
       state: {
         type: Object,
@@ -66,6 +73,16 @@
           },
         },
         {
+          field: 'codes',
+          label: '类型',
+          component: 'Input',
+          defaultValue: '600,601,603,000,002',
+          colProps: { span: 6 },
+          componentProps: {
+            onChange(e) {},
+          },
+        },
+        {
           field: 'dwm',
           label: '周期',
           component: 'Select',
@@ -76,6 +93,20 @@
               { label: '日', value: 'd' },
               { label: '周', value: 'w' },
               { label: '月', value: 'm' },
+            ],
+            onChange(e) {},
+          },
+        },
+        {
+          field: 'random',
+          label: '随机',
+          component: 'Select',
+          colProps: { span: 6 },
+          defaultValue: 'Y',
+          componentProps: {
+            options: [
+              { label: '是', value: 'Y' },
+              { label: '否', value: 'N' },
             ],
             onChange(e) {},
           },
@@ -96,13 +127,32 @@
           span: 24,
         },
       });
+      const getImages = computed(() => {
+        const { label, value } = unref(state).modalImage;
+        const name = value?.split('is')[1]?.toLocaleLowerCase();
+        let url = '';
+        if (name) {
+          url = `http://qianniu.mengtianxiang.top/gupiao/${label}/${name}.png`;
+        }
+        return url;
+      });
       async function handleSubmit() {
         unref(state).show = false;
         const values = getFieldsValue();
-        emit('on-ok', { values });
+
+        queryOne(values);
       }
+      async function queryOne(values) {
+        const res = await getqueryOne({ ...values });
+        unref(state).datas = res.data;
+        // unref(state).callbacks = getCallbacks([item]);
+        debugger;
+        emit('on-ok', res.data, unref(state));
+      }
+
       return {
         register,
+        getImages,
         handleSubmit,
       };
     },
