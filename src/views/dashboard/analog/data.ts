@@ -186,7 +186,7 @@ function getOptions(datas) {
       {
         type: 'inside',
         xAxisIndex: [0, 1],
-        start: 99,
+        start: 95,
         end: 100,
       },
       {

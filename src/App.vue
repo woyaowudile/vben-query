@@ -81,13 +81,14 @@
       conditions: [
         '站上10均线后，突破安装强弱来定',
         '危险：与60金叉后，10在20的上面；10、20、60并头向下，或10、20有死叉的趋势；',
-        '60向下，10与20向上金叉，后若是差不多10%可卖出'
+        '60向下，10与20向上金叉，后若是差不多10%可卖出',
       ],
     },
     { label: '神龙摆尾2', value: 'isSlbw2' },
     { label: '神龙摆尾3', value: 'isSlbw3' },
     { label: '神龙摆尾4', value: 'isSlbw4' },
-    { label: '葛八', value: 'isG8M1' },
+    { label: '葛式八法1', value: 'isGsbf1' },
+    { label: '葛式八法2', value: 'isGsbf2' },
     { label: '鱼跃龙门', value: 'isYylm' },
   ];
 

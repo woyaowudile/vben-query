@@ -313,16 +313,17 @@
           const getFormsValue = queryFn.value?.();
           result = await getqueryDelete({ code, models: getFormsValue.models });
         } else {
+          // todo 存入对应的字段
           const addConf = res.coords.map((v) => {
             return {
               name: window.dicts.find((d) => d.value === v[0])?.label,
               name_key: v[0],
-              buy: v[1],
+              // buy: v[1],
               buy_date: getBuyDate(),
               code: res.code,
               type: res.code.slice(0, 3),
               dwm: res.dwm,
-              price: res.c,
+              buy: res.c,
             };
           });
           result = await getqueryInsert(addConf);

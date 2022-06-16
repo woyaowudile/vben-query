@@ -48,6 +48,14 @@ const dashboard: AppRouteModule = {
       },
     },
     {
+      path: 'plan',
+      name: 'planPage',
+      component: () => import('/@/views/dashboard/plan/index.vue'),
+      meta: {
+        title: '交易计划',
+      },
+    },
+    {
       path: 'analog',
       name: 'Analog',
       component: () => import('/@/views/dashboard/analog/index.vue'),
