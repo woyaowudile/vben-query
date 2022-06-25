@@ -53,12 +53,14 @@
         openDrawer(true, params);
       }
       function getEdit(params) {
+        params.isAdd = false;
         setDrawerProps(params);
         getAdd(params);
       }
-      function tableHeadrClick(name, params) {
+      function tableHeadrClick(name, params = {}) {
         switch (name) {
           case 'getAdd':
+            params.isAdd = true;
             getAdd(params);
             break;
           default:

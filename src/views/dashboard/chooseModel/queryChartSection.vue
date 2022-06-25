@@ -299,12 +299,15 @@
           ],
         };
       }
-      function getBuyDate() {
-        let date = new Date();
-        let year = date.getFullYear();
-        let month = `${date.getMonth() + 1}`.padStart(2, 0);
-        let day = `${date.getDate()}`.padStart(2, 0);
-        return `${year}-${month}-${day}`;
+      function getBuyDate(days = 0, symbol = '-', current = 0) {
+        let today = new Date().getTime();
+        let currentTime = current ? new Date(current).getTime() : today;
+        let interval = 24 * 60 * 60 * 1000 * days;
+        let after = new Date(currentTime - interval);
+        let year = after.getFullYear();
+        let month = after.getMonth() + 1 + '';
+        let date = after.getDate() + '';
+        return `${year}${symbol}${month.padStart(2, 0)}${symbol}${date.padStart(2, 0)}`;
       }
       async function checkChange({ target }, code) {
         let res = unref(item),
@@ -314,16 +317,37 @@
           result = await getqueryDelete({ code, models: getFormsValue.models });
         } else {
           // todo 存入对应的字段
+          debugger;
           const addConf = res.coords.map((v) => {
+            let date2 = new Date(v[2]).getTime();
+            let date3 = new Date(v[3]).getTime();
+            let finds = res.datas
+              .filter((d) => {
+                let date = new Date(d.d).getTime();
+                return date2 <= date && date <= date3;
+              })
+              .map((d) => d.l);
+            let sale_reference = Math.min(...finds);
+            // 暂时设定为 30%
+            let dict = window.dicts.find((d) => d.value === v[0]);
+            let find3 = res.datas.find((d) => d.d === v[3]);
             return {
-              name: window.dicts.find((d) => d.value === v[0])?.label,
+              name: dict?.label,
               name_key: v[0],
-              // buy: v[1],
-              buy_date: getBuyDate(),
               code: res.code,
               type: res.code.slice(0, 3),
               dwm: res.dwm,
-              buy: res.c,
+              // buy: v[1],
+              find_date: find3.d,
+              buy_date: getBuyDate(1),
+              buy: res.o,
+              sale_reference,
+              sale_date: '',
+              sale: '',
+              profit_reference: res.o * (dict?.profit || 1.3),
+              profit: '',
+              wait: 'N',
+              remark: '',
             };
           });
           result = await getqueryInsert(addConf);

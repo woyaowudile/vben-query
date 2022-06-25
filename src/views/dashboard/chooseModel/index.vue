@@ -7,7 +7,7 @@
           show-size-changer
           :current="state.page"
           :pageSize="state.size"
-          :total="500"
+          :total="state.total || 10"
           :pageSizeOptions="[10, 25, 50]"
           @change="changePage"
           @showSizeChange="changeSize"
@@ -68,7 +68,7 @@
         },
         {
           field: 'date',
-          label: '日期',
+          label: '开始日期',
           component: 'DatePicker',
           defaultValue: new Date().toLocaleDateString(),
           colProps: { span: 6 },
@@ -78,6 +78,16 @@
               state.index = 0;
               state.page = 1;
             },
+          },
+        },
+        {
+          field: 'endDate',
+          label: '结束日期',
+          component: 'DatePicker',
+          defaultValue: new Date().toLocaleDateString(),
+          colProps: { span: 6 },
+          componentProps: {
+            valueFormat: 'YYYY-MM-DD',
           },
         },
         {
@@ -160,6 +170,7 @@
           message.success(res.message);
           state.res = res;
           state.index = res.index;
+          state.total = res.total;
         }
       }
       function setPageSize(page, size) {

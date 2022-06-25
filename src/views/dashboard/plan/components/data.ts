@@ -1,7 +1,8 @@
 import { FormSchema } from '/@/components/Form';
 import { isInterThousandth, thousandth } from '/@/utils/number';
 
-function getModelSchemas() {
+function getModelSchemas(flag) {
+  // flag: true表示是新增，false表示是编辑状态
   const list = [
     {
       field: 'name_key',
@@ -10,6 +11,7 @@ function getModelSchemas() {
       required: true,
       componentProps: ({ formModel }) => {
         return {
+          disabled: !flag,
           // mode: 'multiple',
           options: window.dicts,
           onChange(e) {},
@@ -21,6 +23,9 @@ function getModelSchemas() {
       label: '代码',
       required: true,
       component: 'Input',
+      componentProps: {
+        disabled: !flag,
+      },
     },
     {
       field: 'level',
@@ -42,15 +47,18 @@ function getModelSchemas() {
       label: '买入价格（元）',
       component: 'InputNumber',
       required: true,
-      componentProps: {
-        parser: isInterThousandth,
-      },
+      // componentProps: {
+      //   parser: isInterThousandth,
+      // },
     },
     {
       field: 'sale_reference',
       label: '参考卖出（元）',
       required: true,
-      component: 'DatePicker',
+      component: 'InputNumber',
+      componentProps: {
+        disabled: !flag,
+      },
     },
     {
       field: 'sale_date',
@@ -71,13 +79,15 @@ function getModelSchemas() {
     {
       field: 'profit_reference',
       label: '参考利润（元）',
-      required: true,
-      component: 'DatePicker',
+      component: 'InputNumber',
+      componentProps: {
+        disabled: !flag,
+      },
     },
     {
       field: 'profit',
       label: '实际利润（元）',
-      component: 'DatePicker',
+      component: 'InputNumber',
     },
     {
       field: 'dwm',

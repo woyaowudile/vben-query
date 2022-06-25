@@ -7,7 +7,7 @@
     @register="registerDrawer"
     @ok="handleSubmit"
   >
-    <BasicForm @register="register" :model="state.data" :schemas="getModelSchemas()" />
+    <BasicForm @register="register" :model="state.data" :schemas="getModelSchemas(state.isAdd)" />
   </BasicDrawer>
 </template>
 <script lang="ts">
@@ -27,17 +27,18 @@
     setup(props, { emit }) {
       const state = reactive({
         data: null,
+        isAdd: true,
       });
       const [registerDrawer, { closeDrawer }] = useDrawerInner((data) => {
         debugger;
         state.data = data;
+        state.isAdd = data.isAdd;
         // debugger;
         // setFieldsValue(data);
       });
       const [register, { getFieldsValue, setFieldsValue }] = useForm({
-        labelWidth: 80,
+        labelWidth: 120,
         showActionButtonGroup: false,
-        schemas: getModelSchemas(),
         baseColProps: {
           xxl: 24,
           xs: 24,
