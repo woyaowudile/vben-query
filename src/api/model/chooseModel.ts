@@ -54,7 +54,7 @@ export const getqueryInsert = async (data?: addCof[]) => {
   return res?.data?.result;
 };
 
-export const getqueryUpdate = async (data?: { level: string | number; id: number }) => {
+export const getqueryUpdate = async (data?: { level: string | number; id: number } | any) => {
   const res: any = await axios.put<Recordable[]>(apiUrl + Api.update, data);
   return res?.data?.result;
 };

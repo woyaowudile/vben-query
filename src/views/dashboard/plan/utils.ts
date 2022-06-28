@@ -16,7 +16,7 @@ class table {
         labelWidth: 120,
         schemas: formSchemas,
       },
-      useSearchForm: false,
+      useSearchForm: true,
       showTableSetting: true,
       bordered: true,
       showIndexColumn: false,

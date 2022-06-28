@@ -22,17 +22,20 @@
         </div>
       </template>
     </BasicTable>
-    <drawerComp @register="state.drawer[0]" />
+    <drawerComp @register="state.drawer[0]" @on-ok="drawerSubmitOk" />
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { createVNode, defineComponent } from 'vue';
   import { BasicTable, TableAction } from '/@/components/Table';
 
   import { useDrawer } from '/@/components/Drawer';
   import { TableClass } from './utils';
   import drawerComp from './components/drawerComp.vue';
+  import { getqueryDelete } from '/@/api/model/chooseModel';
+  import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+  import { message, Modal } from 'ant-design-vue';
 
   export default defineComponent({
     components: {
@@ -57,6 +60,24 @@
         setDrawerProps(params);
         getAdd(params);
       }
+      async function getDelete(params) {
+        Modal.confirm({
+          title: '删除',
+          icon: createVNode(ExclamationCircleOutlined),
+          content: `确认删除 ${params.name} 吗？`,
+          okText: '确认',
+          cancelText: '取消',
+          async onOk() {
+            const res = await getqueryDelete(params);
+            if (res.code === 0) {
+              message.success('删除成功！');
+              tableClass['plan'].reload();
+            } else {
+              message.error('删除失败！');
+            }
+          },
+        });
+      }
       function tableHeadrClick(name, params = {}) {
         switch (name) {
           case 'getAdd':
@@ -73,12 +94,19 @@
           ...record,
         };
         delete params.level;
-        let lists: any[] = [{ label: '编辑', onclick: getEdit.bind(null, params) }];
+        let lists: any[] = [
+          { label: '编辑', onclick: getEdit.bind(null, params) },
+          { label: '删除', onclick: getDelete.bind(null, params) },
+        ];
         return lists;
+      }
+      function drawerSubmitOk(val, key) {
+        tableClass['plan'].reload();
       }
       return {
         tableClass,
         state,
+        drawerSubmitOk,
         getTableActionActions,
         tableHeadrClick,
       };

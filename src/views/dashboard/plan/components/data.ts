@@ -8,10 +8,8 @@ function getModelSchemas(flag) {
       field: 'name_key',
       label: '模型',
       component: 'Select',
-      required: true,
       componentProps: ({ formModel }) => {
         return {
-          disabled: !flag,
           // mode: 'multiple',
           options: window.dicts,
           onChange(e) {},
@@ -21,10 +19,19 @@ function getModelSchemas(flag) {
     {
       field: 'code',
       label: '代码',
-      required: true,
       component: 'Input',
+      componentProps: {},
+    },
+    {
+      field: 'dwm',
+      label: '周期',
+      component: 'Select',
       componentProps: {
-        disabled: !flag,
+        options: [
+          { label: '日', value: 'd' },
+          { label: '周', value: 'w' },
+          { label: '月', value: 'm' },
+        ],
       },
     },
     {
@@ -39,68 +46,59 @@ function getModelSchemas(flag) {
     {
       field: 'buy_date',
       label: '买入日期',
-      required: true,
       component: 'DatePicker',
+      defaultValue: '',
+      componentProps: {
+        valueFormat: 'YYYY-MM-DD',
+      },
     },
     {
       field: 'buy',
       label: '买入价格（元）',
       component: 'InputNumber',
-      required: true,
-      // componentProps: {
-      //   parser: isInterThousandth,
-      // },
+      componentProps: ({ formModel }) => {
+        return {
+          onBlur(e) {
+            formModel.profit_reference = thousandth(e.target.value * 1.3 + '');
+          },
+        };
+      },
     },
     {
       field: 'sale_reference',
-      label: '参考卖出（元）',
-      required: true,
+      label: '止损价格（元）',
       component: 'InputNumber',
-      componentProps: {
-        disabled: !flag,
-      },
+      componentProps: {},
     },
     {
       field: 'sale_date',
       label: '卖出日期',
-      required: true,
       component: 'DatePicker',
+      defaultValue: '',
+      componentProps: {
+        valueFormat: 'YYYY-MM-DD',
+      },
     },
     {
       field: 'sale',
-      label: '卖出价格（元）',
+      label: '实际卖出（元）',
       component: 'InputNumber',
-      format: thousandth as any,
-      required: true,
-      componentProps: {
-        parser: isInterThousandth,
-      },
+      componentProps: {},
     },
     {
       field: 'profit_reference',
       label: '参考利润（元）',
       component: 'InputNumber',
+      require: true,
       componentProps: {
-        disabled: !flag,
+        parser: thousandth,
       },
     },
     {
       field: 'profit',
       label: '实际利润（元）',
       component: 'InputNumber',
-    },
-    {
-      field: 'dwm',
-      label: '周期',
-      required: true,
-      component: 'Select',
-      componentProps: {
-        options: [
-          { label: '日', value: 'd' },
-          { label: '周', value: 'w' },
-          { label: '月', value: 'm' },
-        ],
-      },
+      componentProps: {},
     },
     {
       field: 'wait',
@@ -117,6 +115,8 @@ function getModelSchemas(flag) {
       field: 'remark',
       label: '备注',
       component: 'InputTextArea',
+      colProps: 24,
+      componentProps: {},
     },
   ];
   return list as FormSchema[];

@@ -95,3 +95,9 @@
   // Listening to page changes and dynamically changing site titles
   useTitle();
 </script>
+
+<style lang="less">
+  .ant-input-number {
+    width: 100% !important;
+  }
+</style>

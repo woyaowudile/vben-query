@@ -303,7 +303,7 @@
         let today = new Date().getTime();
         let currentTime = current ? new Date(current).getTime() : today;
         let interval = 24 * 60 * 60 * 1000 * days;
-        let after = new Date(currentTime - interval);
+        let after = new Date(currentTime + interval);
         let year = after.getFullYear();
         let month = after.getMonth() + 1 + '';
         let date = after.getDate() + '';
@@ -316,8 +316,6 @@
           const getFormsValue = queryFn.value?.();
           result = await getqueryDelete({ code, models: getFormsValue.models });
         } else {
-          // todo 存入对应的字段
-          debugger;
           const addConf = res.coords.map((v) => {
             let date2 = new Date(v[2]).getTime();
             let date3 = new Date(v[3]).getTime();
@@ -330,7 +328,7 @@
             let sale_reference = Math.min(...finds);
             // 暂时设定为 30%
             let dict = window.dicts.find((d) => d.value === v[0]);
-            let find3 = res.datas.find((d) => d.d === v[3]);
+            let find3 = res.datas.findIndex((d) => d.d === v[3]);
             return {
               name: dict?.label,
               name_key: v[0],
@@ -340,11 +338,11 @@
               // buy: v[1],
               find_date: find3.d,
               buy_date: getBuyDate(1),
-              buy: res.o,
+              buy: '',
               sale_reference,
               sale_date: '',
               sale: '',
-              profit_reference: res.o * (dict?.profit || 1.3),
+              profit_reference: find3.o * (dict?.profit || 1.3),
               profit: '',
               wait: 'N',
               remark: '',
