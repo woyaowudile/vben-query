@@ -83,7 +83,13 @@ function getModelSchemas(flag) {
       field: 'sale',
       label: '实际卖出（元）',
       component: 'InputNumber',
-      componentProps: {},
+      componentProps: ({ formModel }) => {
+        return {
+          onBlur(e) {
+            formModel.profit = thousandth(e.target.value - formModel.buy + '');
+          },
+        };
+      },
     },
     {
       field: 'profit_reference',
@@ -103,6 +109,28 @@ function getModelSchemas(flag) {
     {
       field: 'wait',
       label: '待定',
+      component: 'Select',
+      componentProps: {
+        options: [
+          { label: '是', value: 'Y' },
+          { label: '否', value: 'N' },
+        ],
+      },
+    },
+    {
+      field: 'is_real',
+      label: '实盘',
+      component: 'Select',
+      componentProps: {
+        options: [
+          { label: '是', value: 'Y' },
+          { label: '否', value: 'N' },
+        ],
+      },
+    },
+    {
+      field: 'is_sl',
+      label: '止损',
       component: 'Select',
       componentProps: {
         options: [

@@ -5,7 +5,7 @@ export const thousandth = (value: string, auto = true) => {
   if (isNullOrUnDef(value)) return;
   const val = value + '';
   const reg = /^(-)*(\d+)\.(\d\d).*$/;
-  const str = val.replace(/\B(?=(\d{3})+(?!\d))/g, ',').replace(reg, '$1$2.$3');
+  const str = val.replace(/\B(?=(\d{9999})+(?!\d))/g, ',').replace(reg, '$1$2.$3');
   const sp = str.split('.');
   // 自动补全小数位
   if (auto) {
@@ -19,5 +19,5 @@ export const isInterThousandth = (value: string) => {
   if (isNullOrUnDef(value)) return;
   const val = value + '';
   const reg = /^(-)*(\d+)\.().*$/;
-  return val.replace(/\B(?=(\d{3})+(?!\d))/g, ',').replace(reg, '$1$2');
+  return val.replace(/\B(?=(\d{9999})+(?!\d))/g, ',').replace(reg, '$1$2');
 };

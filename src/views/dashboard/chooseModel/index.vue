@@ -30,7 +30,7 @@
 <script>
   import { computed, onMounted, reactive } from 'vue-demi';
   import { BasicForm, useForm } from '/@/components/Form';
-  import { getquery, getqueryBefore } from '/@/api/model/chooseModel';
+  import { getquery, getqueryBefore, getqueryTable } from '/@/api/model/chooseModel';
   import chart from './queryChartSection.vue';
   import { message, Button, Pagination } from 'ant-design-vue';
   import { createSessionStorage } from '/@/utils/cache';
@@ -45,8 +45,10 @@
         page: 1,
         size: 10,
       });
-      onMounted(() => {
+      onMounted(async () => {
         session.set('stash_page', [null, { page: 1, index: 0 }]);
+        // const res = await getqueryTable();
+        // debugger;
       });
       const modalSchema = [
         {
