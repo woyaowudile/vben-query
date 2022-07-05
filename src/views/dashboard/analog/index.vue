@@ -56,12 +56,15 @@
       function btnClick() {
         openModal(true);
       }
+      function time(number = 1) {
+        return number * 24 * 60 * 60 * 1000;
+      }
       function preClick() {
-        state.time -= 1 * 24 * 60 * 60 * 1000;
+        state.time -= time();
         filterData();
       }
       function nextClick() {
-        state.time += 1 * 24 * 60 * 60 * 1000;
+        state.time += time();
         filterData();
       }
       function drawerOk(datas, item, items) {

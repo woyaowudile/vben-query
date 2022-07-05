@@ -3,7 +3,10 @@ import { delCof, addCof } from './interface';
 import axios from 'axios';
 import { isProdMode } from '/@/utils/env';
 
-const apiUrl = isProdMode() ? 'http://43.138.161.76:3000' : 'http://localhost:3334';
+const apiUrl =
+  import.meta.env.VITE_GLOB_API_LOCAL === 'LOCAL' || isProdMode()
+    ? 'http://43.138.161.76:3334'
+    : 'http://localhost:3334';
 enum Api {
   query = '/api/query',
   queryBefore = '/api/querybefore',
